@@ -1,0 +1,11 @@
+[Unit]
+Destription=Factorio Auto-Update Pterodactyl+Python
+
+[Service]
+Type=simple
+ExecStart=~/python/faupp/venv/bin/python3 ~/python/faupp/faupp.py
+Restart=on.failure
+User=$USER
+
+[Install]
+WantedBy=default.target
