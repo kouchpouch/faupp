@@ -1,5 +1,5 @@
 [Unit]
-Destription=Factorio Auto-Update Pterodactyl+Python
+Description=Factorio Auto-Update Pterodactyl+Python
 
 [Service]
 Type=simple
