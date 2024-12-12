@@ -1,5 +1,7 @@
-# faupp
-Factorio Auto Update Python + Pterodactyl
+# Factorio Auto Update Python + Pterodactyl
 
+NOT PRODUCTION READY - Early testing build
 
-NOT PRODUCTION READY
+December 11, 2024
+
+- Initial Commit
