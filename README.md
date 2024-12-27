@@ -1,6 +1,12 @@
 # Factorio Auto Update Python + Pterodactyl
 
-NOT PRODUCTION READY - Early testing build
+Edit example.auth.yaml with your pterodactyl panel information
+
+Rename example.auth.yaml to auth.yaml
+
+Edit faupp.service to run on your machine
+
+Enjoy
 
 December 11, 2024
 
