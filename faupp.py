@@ -126,6 +126,6 @@ while True:
     servers_to_update = get_outdated_servers()
     if servers_to_update:
         update_servers()
-        time.sleep(180)
+        time.sleep(600)
     else:
-        time.sleep(180)
+        time.sleep(600)
