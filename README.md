@@ -1,4 +1,6 @@
 # Factorio Auto Update Python + Pterodactyl
+Use this script to update Factorio servers with the Pterodactyl API automatically. Built for Linux.
+
 ## Install requirements
 ```
 pip3 install -r requirements.txt
