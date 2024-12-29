@@ -48,7 +48,7 @@ def get_outdated_servers():
     servers_to_update = []
     try:
         for server_id in find_server_ids():
-            request_url = f"https://{server_url}/api/client/servers/{server_id}"
+            request_url = f"{server_url}/api/client/servers/{server_id}"
             url = f"{request_url}/files/contents?file=%2F/data/base/info.json"
             response = requests.request('GET', url, headers=headers).json()
             if response['version'] != remote_version:
@@ -63,7 +63,7 @@ def get_outdated_servers():
 def update_servers():
     servers_to_update = get_outdated_servers()
     for server_version, server_id in servers_to_update:
-        request_url = f"https://{server_url}/api/client/servers/{server_id}"
+        request_url = f"{server_url}/api/client/servers/{server_id}"
         server_info = requests.request('GET', request_url, headers=headers).json()
         command_url = f"{request_url}/command"
         reinstall_url = f"{request_url}/settings/reinstall"
