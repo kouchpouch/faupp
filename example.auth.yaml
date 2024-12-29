@@ -1,6 +1,12 @@
 pterodactyl:
   api_key: ptlc_abc123
   server_id1: abcdefgh 
-  server_id2: 12345678
-  # add up to 9 servers! server_id3, 4, 5, 6, 7
+  server_id2: 
+  server_id3:
+  server_id4:
+  server_id5:
+  server_id6:
+  server_id7:
+  server_id8:
+  server_id9:
   server_url: https://my.pterodactyl.server 
