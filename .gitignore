@@ -1,6 +1,0 @@
-venv/
-output
-__pycache
-auth.yaml
-auth.yml
-.gitignore
