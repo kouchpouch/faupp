@@ -102,6 +102,8 @@ def get_outdated_servers():
         if not valid_servers:
             print("No response from any servers, check logs, exiting.")
             exit()
+        if servers_to_update:
+            log.info("Found servers to update: %s", servers_to_update)
     except Timeout:
         log.error("Request to pterodactyl servers timed out. Trying again in 60 seconds")
         print("Request to pterodactyl servers timed out. Trying again in 60 seconds")
@@ -129,6 +131,7 @@ def update_servers():
         backup_info = (requests.request('GET', backup_url, headers=headers)).json()
         backup_total = len(backup_info['data'])
         backup_limit = server_info['attributes']['feature_limits']['backups']
+        log.info("Updating server: %s, from version %s to %s", server_id, server_version, remote_version)
 
     # Find and delete the oldest backup. This creates space for the new backup.
         if backup_total != 0 and (backup_limit - backup_total) == 0:
@@ -140,16 +143,20 @@ def update_servers():
                 time.sleep(5)
                 check_backup_uuid = backup_info['data'][0]['attributes']['uuid']
                 if backup_uuid == check_backup_uuid:
+                    log.info("Backup deleted to make space from server: %s, backup UUID: %s", server_id, backup_uuid)
                     break
                 else:
                     i = i + 1
                 if i == 5:
                     print("Took too long to delete backup, exiting")
+                    log.error("Could not delete backup from server: %s, backup UUID: %s", server_id, backup_uuid)
                     exit()
 
         # Save Game and create backup
         requests.request('POST', command_url, data={"command": "/save"}, headers=headers)
+        log.info("Saving game on server: %s", server_id)
         requests.request('POST', backup_url, data={"name": f"{server_version} Backup"}, headers=headers)
+        log.info("Creating backup on server: %s", server_id)
         check_backup_created = backup_info['data']
         specific_name = f"{server_version} Backup"
         backup_exists = any(element['attributes']['name'] == specific_name for element in check_backup_created)
@@ -167,6 +174,7 @@ def update_servers():
 
         # Reinstall server
         requests.request('POST', reinstall_url, headers=headers)
+        log.info("Reinstall server: %s", server_id)
         time.sleep(10)
         is_installing = server_info['attributes']['is_installing']
         # Check if server is installed
@@ -180,6 +188,7 @@ def update_servers():
         # Start server
         time.sleep(10)
         requests.request('POST', power_url, data={"signal": "start"}, headers=headers)
+        logging.info("Staring server: %s", server_id)
 
 
 while True:
