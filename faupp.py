@@ -10,9 +10,9 @@ log = logging.getLogger(__name__)
 logging.basicConfig(
         format='%(asctime)s: %(message)s', 
         datefmt='%b %d, %Y %H:%M:%S', 
-        filename='log.log', 
+        filename='faupp.log', 
         encoding='utf-8', 
-        level=logging.DEBUG
+        level=logging.INFO
         )
 
 
@@ -102,8 +102,6 @@ def get_outdated_servers():
         if not valid_servers:
             print("No response from any servers, check logs, exiting.")
             exit()
-        if servers_to_update:
-            log.info("Found servers to update: %s", servers_to_update)
     except Timeout:
         log.error("Request to pterodactyl servers timed out. Trying again in 60 seconds")
         print("Request to pterodactyl servers timed out. Trying again in 60 seconds")
@@ -116,6 +114,8 @@ def get_outdated_servers():
         log.exception(e)
         print("An exception occured while trying to get local server information, check logs for details. Exiting")
         exit()
+    if servers_to_update:
+        log.info("Found servers to update: %s", servers_to_update)
     return servers_to_update
 
 
