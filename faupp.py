@@ -58,7 +58,7 @@ def get_remote_version():
         status_code = response.status_code
         if status_code == 200:
             remote_version = (versions['stable']['headless'])
-            log.info('Remote version: %s', remote_version)
+            log.debug('Remote version: %s', remote_version)
         elif status_code == 404:
             print("Cannot find remote factorio version. Status code: 404. Check 'factorio_version_request_url' variable. Exiting")
             exit()
