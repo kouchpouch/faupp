@@ -1,6 +1,6 @@
 # github.com/kouchpouch 2024
 import requests
-from requests.exceptions import HTTPError, Timeout
+from requests.exceptions import Timeout
 import yaml
 import time
 import logging
@@ -48,6 +48,17 @@ headers = {
     }
 
 
+def handle_keyboard_interrupt():
+    print("\nGoodbye!")
+    exit()
+
+
+def handle_exception(e):
+    log.exception(e)
+    print("An exception occured, check logs for details. Exiting")
+    exit()
+
+
 # Requests from Factorio's website and put into JSON format then extract the
 # stable headless version.
 def get_remote_version():
@@ -68,13 +79,9 @@ def get_remote_version():
         time.sleep(60)
         get_remote_version()
     except KeyboardInterrupt:
-        print("\nGoodbye!")
-        exit()
+        handle_keyboard_interrupt()
     except Exception as e:
-        log.exception(e)
-        print("An exception occured while trying to get the remote version, check logs for details. Exiting")
-        exit()
-
+        handle_exception(e)
 
 # Use Pterodactyl API to get the local version from the factorio server files.
 def get_outdated_servers():
@@ -108,12 +115,9 @@ def get_outdated_servers():
         time.sleep(60)
         get_outdated_servers()
     except KeyboardInterrupt:
-        print("\nGoodbye!")
-        exit()
+        handle_keyboard_interrupt()
     except Exception as e:
-        log.exception(e)
-        print("An exception occured while trying to get local server information, check logs for details. Exiting")
-        exit()
+        handle_exception(e)
     if servers_to_update:
         log.info("Found servers to update: %s", servers_to_update)
     return servers_to_update
@@ -201,9 +205,6 @@ while True:
         else:
             time.sleep(600)
     except KeyboardInterrupt:
-        print("\nGoodbye!")
-        exit()
+        handle_keyboard_interrupt()
     except Exception as e:
-        print("An exception occured. Check logs. Exiting")
-        log.exception(e)
-        exit()
+        handle_exception(e)
