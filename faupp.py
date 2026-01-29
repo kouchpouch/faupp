@@ -5,6 +5,7 @@ import yaml
 import json
 import time
 
+
 with open('auth.yaml', 'r') as file:
     auth = yaml.safe_load(file)
 
